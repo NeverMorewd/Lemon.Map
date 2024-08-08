@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="map-64.png" />
+    <None Remove="Resources\Segoe UI Semibold.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Resources\Brushes.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lemon.Map.ViewModel\Lemon.Map.ViewModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="map-64.png" />
+    <Resource Include="Resources\Segoe UI Semibold.ttf" />
+  </ItemGroup>
+
+</Project>

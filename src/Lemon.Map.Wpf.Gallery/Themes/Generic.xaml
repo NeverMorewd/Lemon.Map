@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Lemon.Map.Wpf.Gallery;component/Resources/Font.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Lemon.Map.Wpf.Gallery;component/Resources/Strings.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Lemon.Map.Wpf.Gallery;component/Themes/LemonWindow.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Lemon.Map.Wpf.Gallery;component/Themes/LemonWindowTitleBar.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

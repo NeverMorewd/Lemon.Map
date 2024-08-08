@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lemon.Map.Model\Lemon.Map.Model.csproj" />
+    <ProjectReference Include="..\Lemon.Map.ViewModel\Lemon.Map.ViewModel.csproj" />
+    <ProjectReference Include="..\Lemon.Map.Wpf\Lemon.Map.Wpf.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Segoe UI Semibold.ttf" />
+  </ItemGroup>
+
+</Project>
