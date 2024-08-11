@@ -16,6 +16,7 @@ namespace Lemon.Map.Wpf.Controls
 
         private ContentPresenter? _contentPresenter;
         private bool _signing;
+        private Point _lastContextMenuPosition;
         static Region()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Region), new FrameworkPropertyMetadata(typeof(Region)));
@@ -153,27 +154,18 @@ namespace Lemon.Map.Wpf.Controls
 
         private void OnFlagColorChanged()
         {
-            if (GetTemplateChild("PART_AttachContent") is ContentPresenter attachConent)
+            Flag targetFlag = new()
             {
-                Flag targetFlag = new()
-                {
-                    Width = 30,
-                    Height = 30,
-                    FillBrush = Brushes.Green,
-                    BorderBrush = Brushes.Red,
-                    BorderThickness = 1,
-                    VerticalAlignment = VerticalAlignment.Top,
-                    HorizontalAlignment = HorizontalAlignment.Left
-                };
-                attachConent.Content = targetFlag;
-                var map = VisualTreeHelperExtension.FindVisualParent<Map>(this);
-                Point mousePositionRelativeToControl = Mouse.GetPosition(map);
-                Point mousePositionOnRegion = Mouse.GetPosition(this); 
-                Point mousePositionOnMap = this.TransformToAncestor(map).Transform(mousePositionOnRegion);
-
-                attachConent.Margin = new Thickness(mousePositionOnMap.X, mousePositionOnMap.Y,0,0);
-                Panel.SetZIndex(attachConent, 100);
-            }
+                Width = 30,
+                Height = 30,
+                FillBrush = Brushes.Green,
+                BorderBrush = Brushes.Red,
+                BorderThickness = 1,
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+            var map = VisualTreeHelperExtension.FindVisualParent<Map>(this);
+            map!.AttachContents.Add(new AttachContentModel { Name="flag",Content = targetFlag,Location = new System.Drawing.Point((int)_lastContextMenuPosition.X,(int)_lastContextMenuPosition.Y) });
         }
 
         protected override void OnRender(DrawingContext drawingContext)
@@ -383,6 +375,13 @@ namespace Lemon.Map.Wpf.Controls
             contextMenu.Items.Add(fillColorMenuItem);
             contextMenu.Items.Add(setFlagMenuItem);
             ContextMenu = contextMenu;
+            ContextMenu.Opened += ContextMenu_Opened;
+        }
+
+        private void ContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            var canvas = VisualTreeHelperExtension.FindVisualParent<Map>(this);
+            _lastContextMenuPosition = Mouse.GetPosition(canvas);
         }
 
         private void OnFlagColorGreenClicked(object sender, RoutedEventArgs e)

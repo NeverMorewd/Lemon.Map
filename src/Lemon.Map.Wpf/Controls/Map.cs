@@ -1,6 +1,9 @@
 ﻿using Lemon.Map.Model;
+using System.Collections.ObjectModel;
+using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -11,13 +14,58 @@ namespace Lemon.Map.Wpf.Controls
     /// </summary>
     [TemplatePart(Name = PART_CONTENTPRESENTER_NAME, Type = typeof(ContentPresenter))]
     [TemplatePart(Name = PART_CURSORTEXT_NAME, Type = typeof(TextBlock))]
+    [TemplatePart(Name = PART_ATTACHCONTENTGRID_NAME, Type = typeof(Grid))]
     public class Map : Control
     {
         private const string PART_CONTENTPRESENTER_NAME = "PART_Presenter";
         private const string PART_CURSORTEXT_NAME = "PART_CursorText";
+        private const string PART_ATTACHCONTENTGRID_NAME = "PART_AttachContentGrid";
         static Map()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Map), new FrameworkPropertyMetadata(typeof(Map)));
+        }
+
+        public Map() 
+        {
+            AttachContents = [];
+            BindingOperations.EnableCollectionSynchronization(AttachContents, new object());
+            AttachContents.CollectionChanged += AttachContents_CollectionChanged;
+        }
+
+        private void AttachContents_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (GetTemplateChild(PART_ATTACHCONTENTGRID_NAME) is Grid attachGrid)
+            {
+                switch (e.Action)
+                {
+                    case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                        if (e.NewItems != null && e.NewItems.Count > 0)
+                        {
+                            foreach (var item in e.NewItems)
+                            {
+                                if (item is AttachContentModel attach)
+                                {
+                                    if (attach.Content is FrameworkElement element)
+                                    {
+                                        element.VerticalAlignment = VerticalAlignment.Top;
+                                        element.HorizontalAlignment = HorizontalAlignment.Left;
+                                        
+                                        element.Margin = new Thickness(attach.Location.X, attach.Location.Y, 0, 0);
+                                        attachGrid.Children.Add(element);
+
+
+                                    }
+                                    else
+                                    {
+                                        attachGrid.Children.Add(new TextBlock() { Text = item.ToString() });
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                }
+
+            }
         }
 
         #region Regions (ReadOnly)
@@ -109,5 +157,19 @@ namespace Lemon.Map.Wpf.Controls
                 }
             });
         }
+
+
+
+        public ObservableCollection<AttachContentModel> AttachContents
+        {
+            get { return (ObservableCollection<AttachContentModel>)GetValue(AttachContentsProperty); }
+            set { SetValue(AttachContentsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for AttachContents.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AttachContentsProperty =
+            DependencyProperty.Register("AttachContents", typeof(ObservableCollection<AttachContentModel>), typeof(Map), new PropertyMetadata(null));
+
+
     }
 }

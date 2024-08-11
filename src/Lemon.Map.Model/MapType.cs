@@ -2,9 +2,9 @@
 {
     public enum MapType
     {
+        CHINA_BETA,
         WORLD_ALPHA,
         CHINA_ALPHA,
-        CHINA_BETA,
         //USA,
         //JAPAN
     }

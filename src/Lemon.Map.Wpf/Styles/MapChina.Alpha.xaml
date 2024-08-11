@@ -3,8 +3,8 @@
                     xmlns:controls="clr-namespace:Lemon.Map.Wpf.Controls"
                     xmlns:local="clr-namespace:Lemon.Map.Wpf">
     <local:MapDataTemplate x:Key="CHINA_ALPHA">
-        <Viewbox Stretch="Uniform">
-            <Canvas
+        <controls:CoordinateCanvas
+                Name="CoordinateCanvas"
                 Width="1920"
                 Height="1080"
                 HorizontalAlignment="Center">
@@ -330,7 +330,6 @@
                         </controls:Region.RegionBoundary>
                     </controls:Region>
                 </Canvas>
-            </Canvas>
-        </Viewbox>
+            </controls:CoordinateCanvas>
     </local:MapDataTemplate>
 </ResourceDictionary>

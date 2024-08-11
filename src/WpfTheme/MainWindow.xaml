@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:WpfTheme"
+    xmlns:controls="clr-namespace:WpfTheme.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="MainWindow"
     Width="800"
@@ -66,26 +67,11 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid>
-        <ListBox ItemsSource="{Binding TestRegions}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name,Mode=TwoWay}"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <!--<ScrollViewer x:Name="CanvasScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <Canvas Name="ImageCanvas" Background="Gray">
-                <Image Name="EditableImage" RenderTransformOrigin="0.5,0.5">
-                    <Image.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform x:Name="ImageScaleTransform" ScaleX="1" ScaleY="1"/>
-                            <TranslateTransform x:Name="ImageTranslateTransform" X="0" Y="0"/>
-                        </TransformGroup>
-                    </Image.RenderTransform>
-                </Image>
-                <Button Style="{DynamicResource ButtonStyle1}" x:Name="button" Content="Button" Canvas.Left="240" Canvas.Top="168"/>
-            </Canvas>
-        </ScrollViewer>-->
+    <Grid x:Name="mainGrid">
+        <controls:TestControl x:Name="control" IsHitTestVisible="True" ClipToBounds="True" Height="100" Width="100" MyProperty="100">
+            <controls:TestControl.RenderTransform>
+                <MatrixTransform Matrix="1.25 0 0 -1.25 0 0" />
+            </controls:TestControl.RenderTransform>
+        </controls:TestControl>
     </Grid>
 </Window>

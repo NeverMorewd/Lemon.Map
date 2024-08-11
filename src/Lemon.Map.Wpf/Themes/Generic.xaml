@@ -21,7 +21,6 @@
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                             TextBlock.FontSize="{TemplateBinding FontSize}"
                             TextBlock.Foreground="{TemplateBinding Foreground}" />
-                        <ContentPresenter x:Name="PART_AttachContent" Panel.ZIndex="9" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -43,6 +42,8 @@
         <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}" />
     </Style>
     <Style TargetType="{x:Type controls:Map}">
+        <Setter Property="Width" Value="1920"/>
+        <Setter Property="Height" Value="1080"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:Map}">
@@ -60,6 +61,7 @@
                             x:Name="PART_CursorText"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
+                            IsHitTestVisible="False"
                             Background="{DynamicResource Brush.Background.Hover}"
                             Foreground="{DynamicResource Brush.Dangerous}" />
                         <controls:GridRuler
@@ -68,12 +70,16 @@
                             Margin="1"
                             ClipToBounds="True"
                             GridSize="10"
-                            LineBrush="{DynamicResource Brush.Foreground.Main}"
+                            LineBrush="{DynamicResource Brush.Background.Minor}"
                             SnapsToDevicePixels="True"
                             UseLayoutRounding="True" />
                         <!--<controls:MouseTrackerDecorator x:Name="mouseTracker">-->
+                        <Viewbox Stretch="Uniform">
                             <ContentPresenter x:Name="PART_Presenter" Margin="2" />
+                        </Viewbox>
                         <!--</controls:MouseTrackerDecorator>-->
+                        <Grid x:Name="PART_AttachContentGrid">
+                        </Grid>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

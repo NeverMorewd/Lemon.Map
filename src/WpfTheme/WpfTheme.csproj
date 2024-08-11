@@ -9,16 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ImageWindow.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="test.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controls\" />
+    <Page Remove="ImageWindow.xaml" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Lemon.Map.ViewModel\Lemon.Map.ViewModel.csproj" />
-    <ProjectReference Include="..\Lemon.Map.Wpf.Sample\Lemon.Map.Wpf.Sample.Absolute.csproj" />
     <ProjectReference Include="..\Lemon.Map.Wpf\Lemon.Map.Wpf.csproj" />
   </ItemGroup>
 

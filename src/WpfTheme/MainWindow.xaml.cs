@@ -1,14 +1,9 @@
-﻿using Lemon.Map.ViewModel;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using WpfTheme.Controls;
 
 namespace WpfTheme
 {
@@ -24,9 +19,7 @@ namespace WpfTheme
         public MainWindow()
         {
             InitializeComponent();
-            var vm = new MainViewModel();
-            BindingOperations.EnableCollectionSynchronization(vm.TestRegions, new());
-            this.DataContext = vm;
+            AddHandler(TestControl.MouseLeftButtonUpEvent, new MouseButtonEventHandler(TestControl_MouseLeftButtonUp),true);
 
             //// Load an image
             //EditableImage.Source = new BitmapImage(new Uri("test.png", UriKind.Relative));
@@ -40,6 +33,12 @@ namespace WpfTheme
             //ImageCanvas.MouseLeftButtonDown += ImageCanvas_MouseLeftButtonDown;
             //ImageCanvas.MouseMove += ImageCanvas_MouseMove;
             //ImageCanvas.MouseLeftButtonUp += ImageCanvas_MouseLeftButtonUp;
+        }
+
+        private void TestControl_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var p1 = Mouse.GetPosition(VisualTreeHelper.GetParent(control) as Grid);
+            var p2 = Mouse.GetPosition(mainGrid);
         }
 
         //private void ImageCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
