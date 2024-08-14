@@ -134,24 +134,6 @@ namespace Lemon.Map.Wpf.Controls
 
 
 
-        public FlagColor Flag
-        {
-            get { return (FlagColor)GetValue(FlagProperty); }
-            set { SetValue(FlagProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty FlagProperty =
-            DependencyProperty.Register("Flag", typeof(FlagColor), typeof(Region), new PropertyMetadata(FlagColor.None, FlagPropertyChangedCallback));
-
-        private static void FlagPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (d is Region region)
-            {
-                region.OnFlagColorChanged();
-            }
-        }
-
         private void OnFlagColorChanged()
         {
             Flag targetFlag = new()
@@ -386,7 +368,7 @@ namespace Lemon.Map.Wpf.Controls
 
         private void OnFlagColorGreenClicked(object sender, RoutedEventArgs e)
         {
-            Flag = FlagColor.GreenFlag;
+            OnFlagColorChanged();
         }
 
         private void OnFillColorNoneClicked(object sender, RoutedEventArgs e)

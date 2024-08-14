@@ -1,5 +1,7 @@
 ﻿using Lemon.Map.Model;
+using Lemon.Map.Wpf.Extensions;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,13 +34,13 @@ namespace Lemon.Map.Wpf.Controls
             AttachContents.CollectionChanged += AttachContents_CollectionChanged;
         }
 
-        private void AttachContents_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void AttachContents_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             if (GetTemplateChild(PART_ATTACHCONTENTGRID_NAME) is Grid attachGrid)
             {
                 switch (e.Action)
                 {
-                    case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    case NotifyCollectionChangedAction.Add:
                         if (e.NewItems != null && e.NewItems.Count > 0)
                         {
                             foreach (var item in e.NewItems)
@@ -51,9 +53,8 @@ namespace Lemon.Map.Wpf.Controls
                                         element.HorizontalAlignment = HorizontalAlignment.Left;
                                         
                                         element.Margin = new Thickness(attach.Location.X, attach.Location.Y, 0, 0);
+                                        attach.ContainerSize = RenderSize.ToDrawingSize();
                                         attachGrid.Children.Add(element);
-
-
                                     }
                                     else
                                     {
@@ -88,6 +89,22 @@ namespace Lemon.Map.Wpf.Controls
         }
         #endregion
 
+        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
+        {
+            base.OnRenderSizeChanged(sizeInfo);
+            if (AttachContents.Any())
+            {
+                var newSize = sizeInfo.NewSize;
+                foreach (var content in AttachContents)
+                {
+                    double xFactor = newSize.Width / content.ContainerSize.Width;
+                    double yFactor = newSize.Height / content.ContainerSize.Height;
+                    var element = content.Content as FrameworkElement;
+                    element!.Margin = new Thickness(element.Margin.Left*xFactor,element.Margin.Top*yFactor,0,0);
+                    content.ContainerSize = newSize.ToDrawingSize();
+                }
+            }
+        }
         public ContentPresenter? MapPresenter
         {
             get;
@@ -103,7 +120,7 @@ namespace Lemon.Map.Wpf.Controls
             MouseMove += Map_MouseMove;
         }
 
-        private void Map_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        private void Map_MouseMove(object sender, MouseEventArgs e)
         {
             if (GetTemplateChild(PART_CURSORTEXT_NAME) is TextBlock textBlock)
             {

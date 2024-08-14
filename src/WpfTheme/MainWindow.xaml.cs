@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Concurrent;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -19,8 +20,8 @@ namespace WpfTheme
         public MainWindow()
         {
             InitializeComponent();
-            AddHandler(TestControl.MouseLeftButtonUpEvent, new MouseButtonEventHandler(TestControl_MouseLeftButtonUp),true);
-
+            AddHandler(TestControl.MouseLeftButtonUpEvent, new MouseButtonEventHandler(TestControl_MouseLeftButtonUp), true);
+            LongRunningTest();
             //// Load an image
             //EditableImage.Source = new BitmapImage(new Uri("test.png", UriKind.Relative));
 
@@ -39,6 +40,23 @@ namespace WpfTheme
         {
             var p1 = Mouse.GetPosition(VisualTreeHelper.GetParent(control) as Grid);
             var p2 = Mouse.GetPosition(mainGrid);
+        }
+        public void LongRunningTest()
+        {
+            Task.Factory.StartNew(async () =>
+            {
+                while (true)
+                {
+                    Console.WriteLine($"1:{Environment.CurrentManagedThreadId},{Thread.CurrentThread.IsThreadPoolThread}");
+                    var context = new SingleThreadSynchronizationContext();
+                    SynchronizationContext.SetSynchronizationContext(context);
+
+                    context.Post(_ => { Console.WriteLine(""); },null);
+                    context.RunOnCurrentThread();
+
+                    Console.WriteLine($"3:{Environment.CurrentManagedThreadId},{Thread.CurrentThread.IsThreadPoolThread}");
+                }
+            }, TaskCreationOptions.LongRunning);
         }
 
         //private void ImageCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -74,5 +92,45 @@ namespace WpfTheme
         //    _isDragging = false;
         //    ImageCanvas.ReleaseMouseCapture();
         //}
+
+    }
+    sealed class SingleThreadSynchronizationContext : SynchronizationContext
+    {
+
+        private readonly Thread Thread = Thread.CurrentThread;
+        public SingleThreadSynchronizationContext()
+        {
+            WorkItemsQueue = new BlockingCollection<KeyValuePair<SendOrPostCallback, object>>();
+        }
+        public BlockingCollection<KeyValuePair<SendOrPostCallback, object>> WorkItemsQueue
+        {
+            get;
+            set;
+        }
+
+
+        public override void Post(SendOrPostCallback d, object state)
+        {
+            if (d == null)
+                throw new ArgumentNullException("d");
+
+            WorkItemsQueue.Add(new KeyValuePair<SendOrPostCallback, object>(d, state));
+        }
+
+
+        public override void Send(SendOrPostCallback d, object state)
+        {
+            throw new NotSupportedException("Synchronously sending is not supported.");
+        }
+
+
+        public void RunOnCurrentThread()
+        {
+            foreach (var workItem in WorkItemsQueue.GetConsumingEnumerable())
+                workItem.Key(workItem.Value);
+        }
+
+
+        public void Complete() { WorkItemsQueue.CompleteAdding(); }
     }
 }
