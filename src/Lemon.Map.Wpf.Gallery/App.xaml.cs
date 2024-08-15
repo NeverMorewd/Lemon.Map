@@ -6,6 +6,7 @@ using System.Data;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace Lemon.Map.Wpf.Gallery
@@ -18,7 +19,9 @@ namespace Lemon.Map.Wpf.Gallery
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            RenderOptions.ProcessRenderMode = System.Windows.Interop.RenderMode.SoftwareOnly;
 
+            Application.Current.Dispatcher.UnhandledException += Dispatcher_UnhandledException;
             //Current.Resources.MergedDictionaries.Add(ApplicationContext.Default.LightResource);
             Locator.CurrentMutable.InitializeReactiveUI();
             RxApp.MainThreadScheduler = new SynchronizationContextScheduler(SynchronizationContext.Current!);
@@ -27,6 +30,11 @@ namespace Lemon.Map.Wpf.Gallery
                 typeof(Timeline),
                 new FrameworkPropertyMetadata { DefaultValue = 60 });
 
+        }
+
+        private void Dispatcher_UnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            //
         }
     }
 

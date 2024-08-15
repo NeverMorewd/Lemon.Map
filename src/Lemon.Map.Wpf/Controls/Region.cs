@@ -10,11 +10,14 @@ using System.Windows.Shapes;
 namespace Lemon.Map.Wpf.Controls
 {
     [TemplatePart(Name = PART_CONTENTPRESENTER_NAME, Type = typeof(ContentPresenter))]
+    [TemplatePart(Name = PART_CONTENTPOPUP_NAME, Type = typeof(Popup))]
     public class Region : ButtonBase
     {
         private const string PART_CONTENTPRESENTER_NAME = "PART_ContentPresenter";
+        private const string PART_CONTENTPOPUP_NAME = "PART_ContentPopup";
 
         private ContentPresenter? _contentPresenter;
+        private Popup? _contentPopup;
         private bool _signing;
         private Point _lastContextMenuPosition;
         static Region()
@@ -181,6 +184,7 @@ namespace Lemon.Map.Wpf.Controls
         {
             base.OnApplyTemplate();
             _contentPresenter = GetTemplateChild(PART_CONTENTPRESENTER_NAME) as ContentPresenter;
+            _contentPopup = GetTemplateChild(PART_CONTENTPOPUP_NAME) as Popup;
             _contentPresenter!.SizeChanged += ContentPresenter_SizeChanged;
             BuildDefaultContextMenu();
         }
@@ -226,6 +230,7 @@ namespace Lemon.Map.Wpf.Controls
             switch (e.Property.Name)
             {
                 case nameof(IsMouseOver):
+                    SetContentPopupOpen(IsMouseOver);
                     if (_signing)
                     {
                         return;
@@ -425,6 +430,15 @@ namespace Lemon.Map.Wpf.Controls
         {
             Clip = RegionBoundary;
             InvalidateVisual();
+        }
+
+        public void SetContentPopupOpen(bool isOpen)
+        {
+            if (_contentPopup == null)
+            {
+                return;
+            }
+            _contentPopup!.IsOpen = isOpen;
         }
     }
 }

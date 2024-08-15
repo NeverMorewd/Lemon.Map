@@ -2,6 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FontFamily x:Key="SegoeUI.SemiBold">/Lemon.Map.Wpf;component/Resources/Segoe UI Semibold.ttf#Segoe UI Semibold</FontFamily>
     <Style TargetType="TextBlock">
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
         <Setter Property="FontFamily" Value="{StaticResource SegoeUI.SemiBold}"/>
     </Style>
     <Style TargetType="TextBox">

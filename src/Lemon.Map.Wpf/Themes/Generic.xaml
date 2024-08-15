@@ -13,16 +13,16 @@
                 x:Key="BackgroundIcon"
                 Width="10"
                 Height="10"
-                Stroke="{DynamicResource Brush.Foreground.Main}"
-                Fill="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type MenuItem}}}" />
+                Fill="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type MenuItem}}}"
+                Stroke="{DynamicResource Brush.Foreground.Main}" />
         </ContextMenu.Resources>
         <MenuItem Header="Background">
-            <MenuItem Icon="{StaticResource BackgroundIcon}" Background="Red"/>
-            <MenuItem Icon="{StaticResource BackgroundIcon}" Background="Green"/>
-            <MenuItem Icon="{StaticResource BackgroundIcon}" Background="Blue"/>
-            <MenuItem Icon="{StaticResource BackgroundIcon}" Background="Yellow"/>
-            <MenuItem Icon="{StaticResource BackgroundIcon}" Background="Transparent"/>
-            <MenuItem Header="Revert"/>
+            <MenuItem Background="Red" Icon="{StaticResource BackgroundIcon}" />
+            <MenuItem Background="Green" Icon="{StaticResource BackgroundIcon}" />
+            <MenuItem Background="Blue" Icon="{StaticResource BackgroundIcon}" />
+            <MenuItem Background="Yellow" Icon="{StaticResource BackgroundIcon}" />
+            <MenuItem Background="Transparent" Icon="{StaticResource BackgroundIcon}" />
+            <MenuItem Header="Revert" />
         </MenuItem>
         <MenuItem Header="Flag" />
     </ContextMenu>
@@ -39,11 +39,44 @@
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                             TextBlock.FontSize="{TemplateBinding FontSize}"
                             TextBlock.Foreground="{TemplateBinding Foreground}" />
+                        <Popup
+                            x:Name="PART_ContentPopup"
+                            AllowsTransparency="True"
+                            Focusable="False"
+                            IsHitTestVisible="False"
+                            Placement="Mouse"
+                            PlacementTarget="{Binding ElementName=PART_ContentPresenter}"
+                            PopupAnimation="Scroll"
+                            StaysOpen="True">
+                            <Grid>
+                                <Border
+                                    Margin="5"
+                                    Background="{DynamicResource Brush.Background.Main}"
+                                    BorderBrush="{DynamicResource Brush.BorderBrush.Main}"
+                                    BorderThickness="0"
+                                    CornerRadius="5">
+                                    <Border.Effect>
+                                        <DropShadowEffect
+                                            BlurRadius="5"
+                                            Direction="0"
+                                            Opacity="0.3"
+                                            ShadowDepth="0"
+                                            Color="Gray" />
+                                    </Border.Effect>
+                                </Border>
+                                <TextBlock
+                                    Margin="10"
+                                    FontSize="12"
+                                    Foreground="{DynamicResource Brush.Foreground.Main}"
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Content}"
+                                    TextWrapping="WrapWithOverflow" />
+                            </Grid>
+                        </Popup>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="ContextMenu" Value="{StaticResource RegionContextMenu}"/>
+        <Setter Property="ContextMenu" Value="{StaticResource RegionContextMenu}" />
         <Setter Property="Background" Value="{DynamicResource Brush.Background.Minor}" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -58,7 +91,8 @@
         <Setter Property="Foreground" Value="{DynamicResource Brush.Foreground.Main}" />
         <Setter Property="FontSize" Value="9" />
         <Setter Property="AllowDrop" Value="True" />
-        <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}" />
+        <!--<Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}" />
+        <Setter Property="ToolTipService.ShowDuration" Value="12000" />-->
     </Style>
     <Style TargetType="{x:Type controls:Map}">
         <Setter Property="Width" Value="1920" />
@@ -87,6 +121,8 @@
                             Width="{TemplateBinding Width}"
                             Height="{TemplateBinding Height}"
                             Margin="1"
+                            IsHitTestVisible="False"
+                            Visibility="Collapsed"
                             ClipToBounds="True"
                             GridSize="10"
                             LineBrush="{DynamicResource Brush.Background.Minor}"
