@@ -68,10 +68,14 @@
         </Style>
     </Window.Resources>
     <Grid x:Name="mainGrid">
-        <controls:TestControl x:Name="control" IsHitTestVisible="True" ClipToBounds="True" Height="100" Width="100" MyProperty="100">
-            <controls:TestControl.RenderTransform>
-                <MatrixTransform Matrix="1.25 0 0 -1.25 0 0" />
-            </controls:TestControl.RenderTransform>
-        </controls:TestControl>
+        <DockPanel>
+            <controls:TestControl x:Name="control" IsHitTestVisible="True" ClipToBounds="True" Height="100" Width="100" MyProperty="100">
+                <controls:TestControl.RenderTransform>
+                    <MatrixTransform Matrix="1.25 0 0 -1.25 0 0" />
+                </controls:TestControl.RenderTransform>
+            </controls:TestControl>
+            <ComboBox ItemsSource="{Binding Items}" Width="100"/>
+            <Button Click="Button_Click"/>
+        </DockPanel>
     </Grid>
 </Window>

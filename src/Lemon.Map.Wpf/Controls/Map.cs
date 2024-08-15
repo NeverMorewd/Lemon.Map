@@ -1,5 +1,6 @@
 ﻿using Lemon.Map.Model;
 using Lemon.Map.Wpf.Extensions;
+using Lemon.Map.Wpf.Resources;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Reactive.Linq;
@@ -163,13 +164,36 @@ namespace Lemon.Map.Wpf.Controls
                 var regions = VisualTreeHelperExtension.FindVisualChildren<Region>(this);
                 if (regions != null && regions.Count != 0)
                 {
-                    SetRegionsProperty(regions.Select(rb => new RegionModel
+                    var id = Environment.CurrentManagedThreadId;
+                    SetRegionsProperty(regions.Select(rb =>
                     {
-                        Name = rb.Content?.ToString(),
-                        Width = rb.ActualWidth,
-                        Height = rb.ActualHeight,
-                        Left = rb.TransformToAncestor(this).Transform(new Point(0, 0)).X,
-                        Top = rb.TransformToAncestor(this).Transform(new Point(0, 0)).Y,
+                        var regionModel = new RegionModel
+                        {
+                            Name = rb.Content?.ToString(),
+                            Width = rb.ActualWidth,
+                            Height = rb.ActualHeight,
+                            Left = rb.TransformToAncestor(this).Transform(new Point(0, 0)).X,
+                            Top = rb.TransformToAncestor(this).Transform(new Point(0, 0)).Y,
+                        };
+
+                        rb.SetBinding(ContentControl.ContentProperty, 
+                            new Binding()
+                            {
+                                Source = regionModel,
+                                Path = new PropertyPath("Name")
+                            });
+
+
+                        rb.SetBinding(BackgroundProperty, 
+                            new Binding()
+                            {
+                                Source = regionModel,
+                                Path = new PropertyPath("BackgroundColor"),
+                                Converter = Converters.DrawingColorToWpfBrushConverterSingleton
+                            });
+
+
+                        return regionModel;
                     }));
                 }
             });

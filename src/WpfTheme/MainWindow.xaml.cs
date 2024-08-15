@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,10 +17,20 @@ namespace WpfTheme
         private Point _start;
         private Point _origin;
         private bool _isDragging = false;
+        public ObservableCollection<string> Items
+        {
+            get;
+            set;
+        }
 
         public MainWindow()
         {
             InitializeComponent();
+            Items = new ObservableCollection<string> 
+            {
+                "1","2"
+            };
+            this.DataContext = this;
             AddHandler(TestControl.MouseLeftButtonUpEvent, new MouseButtonEventHandler(TestControl_MouseLeftButtonUp), true);
             LongRunningTest();
             //// Load an image
@@ -57,6 +68,11 @@ namespace WpfTheme
                     Console.WriteLine($"3:{Environment.CurrentManagedThreadId},{Thread.CurrentThread.IsThreadPoolThread}");
                 }
             }, TaskCreationOptions.LongRunning);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Items.Add("3");
         }
 
         //private void ImageCanvas_MouseWheel(object sender, MouseWheelEventArgs e)

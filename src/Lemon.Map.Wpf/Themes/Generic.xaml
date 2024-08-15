@@ -7,7 +7,25 @@
         <ResourceDictionary Source="pack://application:,,,/Lemon.Map.Wpf;component/Styles/MapChina.Beta.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Lemon.Map.Wpf;component/Styles/MapWorld.Alpha.xaml" />
     </ResourceDictionary.MergedDictionaries>-->
-
+    <ContextMenu x:Key="RegionContextMenu">
+        <ContextMenu.Resources>
+            <Rectangle
+                x:Key="BackgroundIcon"
+                Width="10"
+                Height="10"
+                Stroke="{DynamicResource Brush.Foreground.Main}"
+                Fill="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type MenuItem}}}" />
+        </ContextMenu.Resources>
+        <MenuItem Header="Background">
+            <MenuItem Icon="{StaticResource BackgroundIcon}" Background="Red"/>
+            <MenuItem Icon="{StaticResource BackgroundIcon}" Background="Green"/>
+            <MenuItem Icon="{StaticResource BackgroundIcon}" Background="Blue"/>
+            <MenuItem Icon="{StaticResource BackgroundIcon}" Background="Yellow"/>
+            <MenuItem Icon="{StaticResource BackgroundIcon}" Background="Transparent"/>
+            <MenuItem Header="Revert"/>
+        </MenuItem>
+        <MenuItem Header="Flag" />
+    </ContextMenu>
     <Style TargetType="{x:Type controls:Region}">
         <Setter Property="Template">
             <Setter.Value>
@@ -25,6 +43,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="ContextMenu" Value="{StaticResource RegionContextMenu}"/>
         <Setter Property="Background" Value="{DynamicResource Brush.Background.Minor}" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -42,17 +61,17 @@
         <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}" />
     </Style>
     <Style TargetType="{x:Type controls:Map}">
-        <Setter Property="Width" Value="1920"/>
-        <Setter Property="Height" Value="1080"/>
+        <Setter Property="Width" Value="1920" />
+        <Setter Property="Height" Value="1080" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:Map}">
                     <ControlTemplate.Resources>
                         <ResourceDictionary>
                             <ResourceDictionary.MergedDictionaries>
-                                <ResourceDictionary Source="pack://application:,,,/Lemon.Map.Wpf;component/Styles/MapChina.Alpha.xaml" />
-                                <ResourceDictionary Source="pack://application:,,,/Lemon.Map.Wpf;component/Styles/MapChina.Beta.xaml" />
-                                <ResourceDictionary Source="pack://application:,,,/Lemon.Map.Wpf;component/Styles/MapWorld.Alpha.xaml" />
+                                <ResourceDictionary Source="pack://application:,,,/Lemon.Map.Wpf;component/Resources/MapChina.Alpha.xaml" />
+                                <ResourceDictionary Source="pack://application:,,,/Lemon.Map.Wpf;component/Resources/MapChina.Beta.xaml" />
+                                <ResourceDictionary Source="pack://application:,,,/Lemon.Map.Wpf;component/Resources/MapWorld.Alpha.xaml" />
                             </ResourceDictionary.MergedDictionaries>
                         </ResourceDictionary>
                     </ControlTemplate.Resources>
@@ -61,9 +80,9 @@
                             x:Name="PART_CursorText"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
-                            IsHitTestVisible="False"
                             Background="{DynamicResource Brush.Background.Hover}"
-                            Foreground="{DynamicResource Brush.Dangerous}" />
+                            Foreground="{DynamicResource Brush.Dangerous}"
+                            IsHitTestVisible="False" />
                         <controls:GridRuler
                             Width="{TemplateBinding Width}"
                             Height="{TemplateBinding Height}"
@@ -78,8 +97,7 @@
                             <ContentPresenter x:Name="PART_Presenter" Margin="2" />
                         </Viewbox>
                         <!--</controls:MouseTrackerDecorator>-->
-                        <Grid x:Name="PART_AttachContentGrid">
-                        </Grid>
+                        <Grid x:Name="PART_AttachContentGrid" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
