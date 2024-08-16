@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace Lemon.Map.Wpf.Controls
@@ -16,13 +17,15 @@ namespace Lemon.Map.Wpf.Controls
     /// Map
     /// </summary>
     [TemplatePart(Name = PART_CONTENTPRESENTER_NAME, Type = typeof(ContentPresenter))]
-    [TemplatePart(Name = PART_CURSORTEXT_NAME, Type = typeof(TextBlock))]
+    //[TemplatePart(Name = PART_CURSORTEXT_NAME, Type = typeof(TextBlock))]
     [TemplatePart(Name = PART_ATTACHCONTENTGRID_NAME, Type = typeof(Grid))]
     public class Map : Control
     {
         private const string PART_CONTENTPRESENTER_NAME = "PART_Presenter";
-        private const string PART_CURSORTEXT_NAME = "PART_CursorText";
+        //private const string PART_CURSORTEXT_NAME = "PART_CursorText";
         private const string PART_ATTACHCONTENTGRID_NAME = "PART_AttachContentGrid";
+        private Line? _partXRuler;
+        private Line? _partYRuler;
         static Map()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Map), new FrameworkPropertyMetadata(typeof(Map)));
@@ -119,15 +122,25 @@ namespace Lemon.Map.Wpf.Controls
             MapPresenter!.ContentTemplate = FindResource(MapType.ToString()) as MapDataTemplate;
             UpdateRegions();
             MouseMove += Map_MouseMove;
+            _partXRuler = GetTemplateChild("PART_XRuler") as Line;
+            _partYRuler = GetTemplateChild("PART_YRuler") as Line;
         }
 
         private void Map_MouseMove(object sender, MouseEventArgs e)
         {
-            if (GetTemplateChild(PART_CURSORTEXT_NAME) is TextBlock textBlock)
+            //if (GetTemplateChild(PART_CURSORTEXT_NAME) is TextBlock textBlock)
+            //{
+            //    //textBlock.Text = e.GetPosition(this).ToString();
+            //    textBlock.Text = Mouse.GetPosition(this).ToString();
+            //}
+            if (_partYRuler == null)
             {
-                //textBlock.Text = e.GetPosition(this).ToString();
-                textBlock.Text = Mouse.GetPosition(this).ToString();
+                return;
             }
+            _partXRuler.Y1 = e.GetPosition(this).Y;
+            _partXRuler.Y2 = e.GetPosition(this).Y;
+            _partYRuler.X1 = e.GetPosition(this).X;
+            _partYRuler.X2 = e.GetPosition(this).X;
         }
 
         public MapType MapType

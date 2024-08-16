@@ -97,6 +97,11 @@
     <Style TargetType="{x:Type controls:Map}">
         <Setter Property="Width" Value="1920" />
         <Setter Property="Height" Value="1080" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="Orange"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:Map}">
@@ -110,30 +115,63 @@
                         </ResourceDictionary>
                     </ControlTemplate.Resources>
                     <Grid>
-                        <TextBlock
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}" />
+                        <!--<TextBlock
                             x:Name="PART_CursorText"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
                             Background="{DynamicResource Brush.Background.Hover}"
                             Foreground="{DynamicResource Brush.Dangerous}"
-                            IsHitTestVisible="False" />
+                            IsHitTestVisible="False" />-->
                         <controls:GridRuler
                             Width="{TemplateBinding Width}"
                             Height="{TemplateBinding Height}"
                             Margin="1"
-                            IsHitTestVisible="False"
-                            Visibility="Collapsed"
                             ClipToBounds="True"
                             GridSize="10"
+                            IsHitTestVisible="False"
                             LineBrush="{DynamicResource Brush.Background.Minor}"
                             SnapsToDevicePixels="True"
-                            UseLayoutRounding="True" />
+                            UseLayoutRounding="True"
+                            Visibility="Collapsed" />
                         <!--<controls:MouseTrackerDecorator x:Name="mouseTracker">-->
-                        <Viewbox Stretch="Uniform">
+                        <Viewbox
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Stretch="Uniform">
                             <ContentPresenter x:Name="PART_Presenter" Margin="2" />
                         </Viewbox>
                         <!--</controls:MouseTrackerDecorator>-->
                         <Grid x:Name="PART_AttachContentGrid" />
+                        <Line
+                            x:Name="PART_XRuler"
+                            VerticalAlignment="Top"
+                            IsHitTestVisible="False"
+                            Stroke="#FF8910"
+                            StrokeDashArray="2,3"
+                            StrokeDashCap="Round"
+                            StrokeEndLineCap="Round"
+                            StrokeStartLineCap="Round"
+                            StrokeThickness="1"
+                            Visibility="Visible"
+                            X1="0"
+                            X2="{Binding Path=ActualWidth, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                        <Line
+                            x:Name="PART_YRuler"
+                            HorizontalAlignment="Left"
+                            IsHitTestVisible="False"
+                            Stroke="#FF8910"
+                            StrokeDashArray="2,3"
+                            StrokeDashCap="Round"
+                            StrokeEndLineCap="Round"
+                            StrokeStartLineCap="Round"
+                            StrokeThickness="1"
+                            Visibility="Visible"
+                            Y1="0"
+                            Y2="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

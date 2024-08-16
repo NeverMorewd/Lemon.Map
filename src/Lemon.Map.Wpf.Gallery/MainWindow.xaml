@@ -7,9 +7,9 @@
     xmlns:lemonmap="https://github.com/NeverMorewd/MapDisplay"
     xmlns:local="clr-namespace:Lemon.Map.Wpf.Gallery"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:Lemon.Map.Model;assembly=Lemon.Map.Model"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:vm="clr-namespace:Lemon.Map.ViewModel;assembly=Lemon.Map.ViewModel"
-    xmlns:models="clr-namespace:Lemon.Map.Model;assembly=Lemon.Map.Model"
     Title="MainWindow"
     Width="800"
     Height="450"
@@ -76,22 +76,32 @@
             <RowDefinition Height="0" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="100" />
+        </Grid.ColumnDefinitions>
         <TextBlock
             Name="FpsTextBlock"
             Grid.Row="1"
-            IsHitTestVisible="False"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             FontSize="15"
-            Foreground="{DynamicResource Brush.Foreground.Main}" />
-        <DockPanel Grid.Row="1" ClipToBounds="True">
-            <StackPanel DockPanel.Dock="Right" Name="OperationPanel">
+            Foreground="{DynamicResource Brush.Foreground.Main}"
+            IsHitTestVisible="False" />
+        <DockPanel
+            Grid.Row="1"
+            Grid.Column="1"
+            ClipToBounds="True">
+            <StackPanel
+                Name="OperationPanel"
+                ClipToBounds="True"
+                DockPanel.Dock="Right">
                 <Label
                     Background="{DynamicResource Brush.Background.Main}"
                     Content="MapType"
                     Foreground="{DynamicResource Brush.Foreground.Main}"
                     Target="{Binding ElementName=mapTypeSelector}" />
-                  <!--The combobox.SelectionChanged event may raise drop frames.Set VirtualizingPanel.IsContainerVirtualizable="True" can avoid-->
+                <!--  The combobox.SelectionChanged event may raise drop frames.Set VirtualizingPanel.IsContainerVirtualizable="True" can avoid  -->
                 <ComboBox
                     Name="MapTypeSelector"
                     Width="auto"
@@ -100,12 +110,15 @@
                     SelectedIndex="0"
                     VirtualizingPanel.IsContainerVirtualizable="True" />
             </StackPanel>
+        </DockPanel>
+        <DockPanel ClipToBounds="True" Grid.Row="1" Grid.Column="0">
             <lemonmap:Map
                 x:Name="MapControl"
-                MapType="{Binding ElementName=MapTypeSelector, Path=SelectedItem}"
                 Width="auto"
                 Height="auto"
+                ClipToBounds="True"
                 Loaded="MapControl_Loaded"
+                MapType="{Binding ElementName=MapTypeSelector, Path=SelectedItem}"
                 MouseWheel="MapControl_MouseWheel"
                 PreviewMouseLeftButtonDown="MapControl_MouseLeftButtonDown"
                 PreviewMouseLeftButtonUp="MapControl_MouseLeftButtonUp"
@@ -123,6 +136,7 @@
                 </local:DataPiping.DataPipes>
             </lemonmap:Map>
         </DockPanel>
+
 
     </Grid>
 </controls:LemonWindow>

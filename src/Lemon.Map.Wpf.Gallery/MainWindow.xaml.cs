@@ -41,7 +41,7 @@ namespace Lemon.Map.Wpf.Gallery
 
             _timer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromMilliseconds(100) // 每100毫秒更新一次
+                Interval = TimeSpan.FromMilliseconds(200)
             };
             _timer.Tick += Timer_Tick;
             _timer.Start();
@@ -79,11 +79,11 @@ namespace Lemon.Map.Wpf.Gallery
 
         private void MapControl_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            bool isCtrlPressed = (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control;
-            if (!isCtrlPressed)
-            {
-                return;
-            }
+            //bool isCtrlPressed = (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control;
+            //if (!isCtrlPressed)
+            //{
+            //    return;
+            //}
             var scaleTransform = (ScaleTransform)((TransformGroup)MapControl.RenderTransform).Children[0];
             var translateTransform = (TranslateTransform)((TransformGroup)MapControl.RenderTransform).Children[1];
             double zoom = e.Delta > 0 ? .2 : -.2;
