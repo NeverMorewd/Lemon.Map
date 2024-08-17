@@ -35,6 +35,7 @@ namespace Lemon.Map.Wpf.Gallery
             InitializeComponent();
 
             DataContext = new MainViewModel();
+            
 
             _stopwatch = new Stopwatch();
             _stopwatch.Start();

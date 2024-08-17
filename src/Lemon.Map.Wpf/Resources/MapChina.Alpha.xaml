@@ -4,7 +4,7 @@
                     xmlns:local="clr-namespace:Lemon.Map.Wpf">
     <local:MapDataTemplate x:Key="CHINA_ALPHA">
         <controls:CoordinateCanvas
-                Name="CoordinateCanvas"
+                x:Name="CoordinateCanvas"
                 Width="1920"
                 Height="1080"
                 HorizontalAlignment="Center">

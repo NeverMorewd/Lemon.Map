@@ -11,8 +11,8 @@
     xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:vm="clr-namespace:Lemon.Map.ViewModel;assembly=Lemon.Map.ViewModel"
     Title="MainWindow"
-    Width="800"
-    Height="450"
+    Width="1000"
+    Height="650"
     mc:Ignorable="d">
     <controls:LemonWindow.TitleBar>
         <controls:LemonWindowTitleBar>

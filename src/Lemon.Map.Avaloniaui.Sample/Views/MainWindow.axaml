@@ -8,7 +8,7 @@
     Title="Lemon.Map.Avaloniaui.Sample"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    x:DataType="vm:MapViewModel"
+    x:DataType="vm:MainViewModel"
     Icon="/Assets/avalonia-logo.ico"
     mc:Ignorable="d">
 
@@ -17,15 +17,8 @@
             This only sets the DataContext for the previewer in an IDE,
             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs)
         -->
-        <vm:MapViewModel />
+		<vm:MainViewModel />
     </Design.DataContext>
 
-    <ListBox ItemsSource="{Binding TestRegions}">
-        <ListBox.ItemTemplate>
-            <DataTemplate>
-                <TextBlock Text="{Binding Name}" />
-            </DataTemplate>
-        </ListBox.ItemTemplate>
-    </ListBox>
 
 </Window>

@@ -1,4 +1,5 @@
 ﻿using Avalonia.Data;
+using Lemon.Map.Model;
 using Lemon.Map.ViewModel;
 using System;
 using System.Collections.ObjectModel;
