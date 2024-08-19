@@ -13,6 +13,7 @@
     Title="MainWindow"
     Width="1000"
     Height="650"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <controls:LemonWindow.TitleBar>
         <controls:LemonWindowTitleBar>
@@ -111,7 +112,10 @@
                     VirtualizingPanel.IsContainerVirtualizable="True" />
             </StackPanel>
         </DockPanel>
-        <DockPanel ClipToBounds="True" Grid.Row="1" Grid.Column="0">
+        <DockPanel
+            Grid.Row="1"
+            Grid.Column="0"
+            ClipToBounds="True">
             <lemonmap:Map
                 x:Name="MapControl"
                 Width="auto"
