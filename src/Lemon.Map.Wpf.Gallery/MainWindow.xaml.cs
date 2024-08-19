@@ -2,6 +2,7 @@
 using Lemon.Map.Wpf.Gallery.Controls;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -107,6 +108,12 @@ namespace Lemon.Map.Wpf.Gallery
                 translateTransform.X = _origin.X - v.X;
                 translateTransform.Y = _origin.Y - v.Y;
             }
+            var _factor = 0.3;
+            var center = e.GetPosition(MapControl);
+            var length = MagnifierRect.ActualWidth * _factor;
+            var radius = length / 2;
+            var viewboxRect = new Rect(center.X - radius, center.Y - radius, length, length);
+            MagnifierBrush.Viewbox = viewboxRect;
 
         }
 

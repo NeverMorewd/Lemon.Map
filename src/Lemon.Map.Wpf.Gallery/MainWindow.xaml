@@ -11,24 +11,16 @@
     xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:vm="clr-namespace:Lemon.Map.ViewModel;assembly=Lemon.Map.ViewModel"
     Title="MainWindow"
-    Width="1000"
+    Width="1200"
     Height="650"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <controls:LemonWindow.TitleBar>
         <controls:LemonWindowTitleBar>
             <Menu>
-                <MenuItem Header="Options">
-                    <MenuItem Header="World.Alpha" />
-                    <MenuItem Header="China.Alpha" />
-                    <MenuItem Header="China.Beta" />
-                    <MenuItem Header="USA" />
-                    <MenuItem Header="Japan" />
-                    <MenuItem Header="Korean" />
-                </MenuItem>
                 <MenuItem Header="Help">
-                    <MenuItem Header="About" />
-                    <MenuItem Header="wpf .net8" />
+                    <MenuItem Header="GitHub" />
+                    <MenuItem Header="WPF/.net8" />
                 </MenuItem>
             </Menu>
             <controls:ToggleSlider
@@ -79,7 +71,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="200" />
         </Grid.ColumnDefinitions>
         <TextBlock
             Name="FpsTextBlock"
@@ -110,6 +102,12 @@
                     ItemsSource="{Binding Source={StaticResource MapTypes}}"
                     SelectedIndex="0"
                     VirtualizingPanel.IsContainerVirtualizable="True" />
+                <Rectangle Height="112" x:Name="MagnifierRect" >
+                    <Rectangle.Fill>
+                        <VisualBrush x:Name="MagnifierBrush" ViewboxUnits="Absolute" Visual="{Binding ElementName=MapControl}">
+                        </VisualBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
             </StackPanel>
         </DockPanel>
         <DockPanel
