@@ -1,4 +1,10 @@
-﻿using Lemon.Map.Wpf.Gallery.Controls;
+﻿using Lemon.Map.ViewModel;
+using Lemon.Map.Wpf.Gallery.Controls;
+using System.Diagnostics;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Lemon.Map.Wpf.Gallery
 {
