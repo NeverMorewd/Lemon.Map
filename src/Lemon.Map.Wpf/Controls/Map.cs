@@ -133,7 +133,7 @@ namespace Lemon.Map.Wpf.Controls
             //    //textBlock.Text = e.GetPosition(this).ToString();
             //    textBlock.Text = Mouse.GetPosition(this).ToString();
             //}
-            if (_partYRuler == null)
+            if (_partYRuler == null || _partXRuler == null)
             {
                 return;
             }
