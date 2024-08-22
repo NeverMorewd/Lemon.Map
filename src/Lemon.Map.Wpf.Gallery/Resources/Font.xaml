@@ -3,10 +3,17 @@
     <FontFamily x:Key="SegoeUI.SemiBold">/Lemon.Map.Wpf;component/Resources/Segoe UI Semibold.ttf#Segoe UI Semibold</FontFamily>
     <Style TargetType="TextBlock">
         <Setter Property="UseLayoutRounding" Value="True"/>
-        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+        <Setter Property="TextOptions.TextRenderingMode" Value="ClearType" />
         <Setter Property="FontFamily" Value="{StaticResource SegoeUI.SemiBold}"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled"/>
     </Style>
     <Style TargetType="TextBox">
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+        <Setter Property="TextOptions.TextRenderingMode" Value="ClearType" />
         <Setter Property="FontFamily" Value="{StaticResource SegoeUI.SemiBold}"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
     </Style>
 </ResourceDictionary>

@@ -438,6 +438,10 @@ namespace Lemon.Map.Wpf.Controls
             {
                 return;
             }
+            if (Content == null)
+            {
+                return;
+            }
             _contentPopup!.IsOpen = isOpen;
         }
     }

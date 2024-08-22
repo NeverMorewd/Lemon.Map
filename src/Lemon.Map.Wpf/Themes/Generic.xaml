@@ -89,7 +89,7 @@
         <Setter Property="MouseOverBackground" Value="{DynamicResource Brush.Background.Hover}" />
         <Setter Property="MousePressBackground" Value="{DynamicResource Brush.Background.Press}" />
         <Setter Property="Foreground" Value="{DynamicResource Brush.Foreground.Main}" />
-        <Setter Property="FontSize" Value="9" />
+        <!--<Setter Property="FontSize" Value="9" />-->
         <Setter Property="AllowDrop" Value="True" />
         <!--<Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}" />
         <Setter Property="ToolTipService.ShowDuration" Value="12000" />-->
