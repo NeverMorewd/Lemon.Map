@@ -1,10 +1,6 @@
-﻿using Lemon.Map.Wpf.Controls;
-using ReactiveUI;
+﻿using ReactiveUI;
 using Splat;
-using System.Configuration;
-using System.Data;
 using System.Reactive.Concurrency;
-using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;

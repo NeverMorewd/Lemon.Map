@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Shapes;
@@ -36,6 +37,15 @@ namespace Lemon.Map.Wpf.Controls
             AttachContents = [];
             BindingOperations.EnableCollectionSynchronization(AttachContents, new object());
             AttachContents.CollectionChanged += AttachContents_CollectionChanged;
+            AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(ClickEventHandler), true);
+        }
+
+        private void ClickEventHandler(object sender, RoutedEventArgs e)
+        {
+            if (sender is Region region)
+            {
+                
+            }
         }
 
         private void AttachContents_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)

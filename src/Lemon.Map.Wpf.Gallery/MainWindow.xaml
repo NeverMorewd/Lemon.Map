@@ -102,6 +102,8 @@
                     ItemsSource="{Binding Source={StaticResource MapTypes}}"
                     SelectedIndex="0"
                     VirtualizingPanel.IsContainerVirtualizable="True" />
+                <GroupBox Header="Detail">
+                </GroupBox>
                 <Rectangle Height="112" x:Name="MagnifierRect" >
                     <Rectangle.Fill>
                         <VisualBrush x:Name="MagnifierBrush" ViewboxUnits="Absolute" Visual="{Binding ElementName=MapControl}">
@@ -138,7 +140,5 @@
                 </local:DataPiping.DataPipes>
             </lemonmap:Map>
         </DockPanel>
-
-
     </Grid>
 </controls:LemonWindow>
