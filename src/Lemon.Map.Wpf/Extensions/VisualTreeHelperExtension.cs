@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows;
 
-namespace Lemon.Map.Wpf
+namespace Lemon.Map.Wpf.Extensions
 {
     public static class VisualTreeHelperExtension
     {

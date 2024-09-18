@@ -1,22 +1,29 @@
 ﻿using Lemon.Map.Model;
 using ReactiveUI;
-using System.Diagnostics;
+using ReactiveUI.Fody.Helpers;
 using System.Drawing;
+using System.Reactive;
 using System.Reactive.Linq;
 
 namespace Lemon.Map.ViewModel
 {
     public class MainViewModel:ReactiveObject
     {
+        private const int CrazyInterval = 5000000;
         public MainViewModel() 
         {
             Random random = new();
+            RegionCommand = ReactiveCommand.Create<object>(param => 
+            {
+                if (param is RegionModel region)
+                {
+                    ClickedRegion = region;
+                }
+            });
 
-
-            Observable.Interval(TimeSpan.FromMilliseconds(200000))
+            Observable.Interval(TimeSpan.FromMilliseconds(CrazyInterval))
                 .ObserveOn(RxApp.MainThreadScheduler)
-                //.ObserveOn(new SynchronizationContextScheduler(SynchronizationContext.Current!))
-                .Subscribe(_ =>
+                .Subscribe( _ =>
                 {
                     try
                     {
@@ -26,10 +33,8 @@ namespace Lemon.Map.ViewModel
                         {
                             foreach (var region in Regions)
                             {
-                                region.Name = new Random().Next().ToString();
                                 region.BackgroundColor = Color.FromArgb(255, random.Next(0, 255), random.Next(0, 255), random.Next(0, 255));
                             }
-
                         }
                     }
                     catch 
@@ -46,7 +51,27 @@ namespace Lemon.Map.ViewModel
             set
             {
                 this.RaiseAndSetIfChanged(ref regions, value);
+                if (regions != null && regions.Any())
+                {
+                    foreach (var region in regions)
+                    {
+                        Console.WriteLine(region);
+                    }
+                }
             }
+        }
+
+        [Reactive]
+        public RegionModel? ClickedRegion
+        {
+            get;
+            set;
+        }
+
+        public ReactiveCommand<object,Unit> RegionCommand
+        {
+            get;
+            set;
         }
     }
 }

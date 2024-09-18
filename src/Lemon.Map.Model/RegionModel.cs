@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using System;
 using System.Drawing;
 
 namespace Lemon.Map.Model
@@ -38,15 +39,29 @@ namespace Lemon.Map.Model
             }
         }
 
+        private Color _actualBackgroundColor = Color.Orange;
+        public Color ActualBackgroundColor
+        {
+            get
+            {
+                return _actualBackgroundColor;
+            }
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _actualBackgroundColor, value);
+            }
+        }
+
         public override string ToString()
         {
-            return $"{nameof(Name)}:{Name}; " +
-                $"{nameof(Description)}:{Description}; " +
-                $"{nameof(BackgroundColor)}:{BackgroundColor}; " +
-                $"{nameof(Top)}:{Top}; " +
-                $"{nameof(Left)}:{Left}" +
-                $"{nameof(Height)}:{Height}" +
-                $"{nameof(Width)}:{Width}";
+            return $"{nameof(Name)}:{Name};{Environment.NewLine}" +
+                $"{nameof(Description)}:{Description};{Environment.NewLine}" +
+                $"{nameof(BackgroundColor)}:{BackgroundColor};{Environment.NewLine}" +
+                $"{nameof(ActualBackgroundColor)}:{ActualBackgroundColor};{Environment.NewLine}" +
+                $"{nameof(Top)}:{Top};{Environment.NewLine}" +
+                $"{nameof(Left)}:{Left};{Environment.NewLine}" +
+                $"{nameof(Height)}:{Height};{Environment.NewLine}" +
+                $"{nameof(Width)}:{Width};{Environment.NewLine}";
         }
     }
 }

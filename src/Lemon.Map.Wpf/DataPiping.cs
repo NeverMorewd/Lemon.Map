@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Lemon.Map.Wpf.Utils
+namespace Lemon.Map.Wpf
 {
     /// <summary>
     /// https://stackoverflow.com/questions/1083224/pushing-read-only-gui-properties-back-into-viewmodel#

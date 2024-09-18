@@ -1,6 +1,8 @@
 ﻿using Lemon.Map.Model;
 using Lemon.Map.Wpf.Extensions;
 using Lemon.Map.Wpf.Resources;
+using Splat.ModeDetection;
+using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Reactive.Linq;
@@ -9,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
@@ -20,7 +23,7 @@ namespace Lemon.Map.Wpf.Controls
     [TemplatePart(Name = PART_CONTENTPRESENTER_NAME, Type = typeof(ContentPresenter))]
     //[TemplatePart(Name = PART_CURSORTEXT_NAME, Type = typeof(TextBlock))]
     [TemplatePart(Name = PART_ATTACHCONTENTGRID_NAME, Type = typeof(Grid))]
-    public class Map : Control
+    public class Map : Control,ICommandSource
     {
         private const string PART_CONTENTPRESENTER_NAME = "PART_Presenter";
         //private const string PART_CURSORTEXT_NAME = "PART_CursorText";
@@ -42,9 +45,16 @@ namespace Lemon.Map.Wpf.Controls
 
         private void ClickEventHandler(object sender, RoutedEventArgs e)
         {
-            if (sender is Region region)
+            if (e.OriginalSource is Region region)
             {
-                
+                if (region.DataContext != null)
+                {
+                    CommandParameter = region.DataContext;
+                }
+                if (Command != null && Command.CanExecute(CommandParameter))
+                {
+                    Command.Execute(CommandParameter);
+                }
             }
         }
 
@@ -199,18 +209,39 @@ namespace Lemon.Map.Wpf.Controls
                             Top = rb.TransformToAncestor(this).Transform(new Point(0, 0)).Y,
                         };
 
+                        rb.DataContext = regionModel;
                         rb.SetBinding(ContentControl.ContentProperty, 
                             new Binding()
                             {
-                                Source = regionModel,
+                                //Source = regionModel,
                                 Path = new PropertyPath("Name")
                             });
 
+                        DataPipe dataPipe = new()
+                        {
+                            Source = rb.ActualBackground
+                        };
+                        //rb.Background = Brushes.Orange;
+                        dataPipe.Target = Brushes.Orange;
+                        Binding binding = new()
+                        {
+                            Source = regionModel,
+                            Path = new PropertyPath("ActualBackground"),
+                            Converter = Converters.DrawingColorToWpfBrushConverterSingleton,
+                            Mode = BindingMode.TwoWay
+                        };
+                        BindingOperations.SetBinding(dataPipe, DataPipe.TargetProperty, binding);
+                        //DataPiping.SetDataPipes(rb, [dataPipe]);
+                        var dataPipes = new DataPipeCollection
+                        {
+                            dataPipe
+                        };
+                        rb.SetValue(DataPiping.DataPipesProperty, dataPipes);
 
                         rb.SetBinding(BackgroundProperty, 
                             new Binding()
                             {
-                                Source = regionModel,
+                                //Source = regionModel,
                                 Path = new PropertyPath("BackgroundColor"),
                                 Converter = Converters.DrawingColorToWpfBrushConverterSingleton
                             });
@@ -230,10 +261,34 @@ namespace Lemon.Map.Wpf.Controls
             set { SetValue(AttachContentsProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for AttachContents.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AttachContentsProperty =
             DependencyProperty.Register("AttachContents", typeof(ObservableCollection<AttachContentModel>), typeof(Map), new PropertyMetadata(null));
 
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(Map), new PropertyMetadata(null));
 
+        public ICommand Command
+        {
+            get { return (ICommand)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty CommandParameterProperty =
+            DependencyProperty.Register(nameof(CommandParameter), typeof(object), typeof(Map), new PropertyMetadata(null));
+
+        public object CommandParameter
+        {
+            get { return GetValue(CommandParameterProperty); }
+            set { SetValue(CommandParameterProperty, value); }
+        }
+
+        public static readonly DependencyProperty CommandTargetProperty =
+             DependencyProperty.Register(nameof(CommandTarget), typeof(IInputElement), typeof(Map), new PropertyMetadata(null));
+
+        public IInputElement CommandTarget
+        {
+            get { return (IInputElement)GetValue(CommandTargetProperty); }
+            set { SetValue(CommandTargetProperty, value); }
+        }
     }
 }

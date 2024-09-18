@@ -1,8 +1,0 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <SolidColorBrush x:Key="Brush.Dangerous" Color="{DynamicResource Color.Dangerous}" />
-    <SolidColorBrush x:Key="Brush.Background.Main" Color="{DynamicResource Color.Background.Main}" />
-    <SolidColorBrush x:Key="Brush.Foreground.Main" Color="{DynamicResource Color.Foreground.Main}" />
-    <SolidColorBrush x:Key="Brush.Background.Minor" Color="{DynamicResource Color.Background.Minor}" />
-    <SolidColorBrush x:Key="Brush.Transparent" Color="Transparent" />
-</ResourceDictionary>

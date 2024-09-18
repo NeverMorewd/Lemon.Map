@@ -1,4 +1,5 @@
 ﻿using Lemon.Map.Model;
+using Lemon.Map.Wpf.Extensions;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;

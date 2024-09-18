@@ -26,7 +26,16 @@ namespace Lemon.Map.Wpf.Resources
 
             public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             {
-                throw new NotImplementedException();
+                ///https://stackoverflow.com/questions/16093157/wpf-binding-onewaytosource-with-a-converter-results-in-immediate-exception
+                if (value is SolidColorBrush brush)
+                {
+                    System.Drawing.Color color = System.Drawing.Color.FromArgb(brush.Color.A,
+                        brush.Color.R,
+                        brush.Color.G,
+                        brush.Color.B);
+                    return color;
+                }
+                return System.Drawing.Color.Transparent;
             }
         }
     }
