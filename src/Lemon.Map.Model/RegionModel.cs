@@ -1,5 +1,7 @@
 ﻿using ReactiveUI;
 using System;
+using System.Collections;
+using System.Collections.ObjectModel;
 using System.Drawing;
 
 namespace Lemon.Map.Model
@@ -39,16 +41,13 @@ namespace Lemon.Map.Model
             }
         }
 
-        private Color _actualBackgroundColor = Color.Orange;
-        public Color ActualBackgroundColor
+        private ObservableCollection<FlagModel> _flags;
+        public ObservableCollection<FlagModel> Flags
         {
-            get
-            {
-                return _actualBackgroundColor;
-            }
+            get => _flags;
             set
             {
-                this.RaiseAndSetIfChanged(ref _actualBackgroundColor, value);
+                this.RaiseAndSetIfChanged(ref _flags, value);
             }
         }
 
@@ -57,7 +56,6 @@ namespace Lemon.Map.Model
             return $"{nameof(Name)}:{Name};{Environment.NewLine}" +
                 $"{nameof(Description)}:{Description};{Environment.NewLine}" +
                 $"{nameof(BackgroundColor)}:{BackgroundColor};{Environment.NewLine}" +
-                $"{nameof(ActualBackgroundColor)}:{ActualBackgroundColor};{Environment.NewLine}" +
                 $"{nameof(Top)}:{Top};{Environment.NewLine}" +
                 $"{nameof(Left)}:{Left};{Environment.NewLine}" +
                 $"{nameof(Height)}:{Height};{Environment.NewLine}" +

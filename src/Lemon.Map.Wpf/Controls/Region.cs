@@ -1,9 +1,12 @@
 ﻿using Lemon.Map.Model;
 using Lemon.Map.Wpf.Extensions;
+using Lemon.Map.Wpf.Resources;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -138,20 +141,52 @@ namespace Lemon.Map.Wpf.Controls
 
 
 
-        private void OnFlagColorChanged()
+        public ObservableCollection<FlagModel> Flags
         {
-            Flag targetFlag = new()
+            get { return (ObservableCollection<FlagModel>)GetValue(FlagsProperty); }
+            set { SetValue(FlagsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Flags.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FlagsProperty =
+            DependencyProperty.Register("Flags", typeof(ObservableCollection<FlagModel>), typeof(Region), new PropertyMetadata(null));
+
+
+
+
+        private void OnFlagColorChanged(Brush brush,Brush borderBrush)
+        {
+            FlagModel flagViewModel = new();
+            Flag flag = new()
             {
                 Width = 30,
                 Height = 30,
-                FillBrush = Brushes.Green,
-                BorderBrush = Brushes.Red,
                 BorderThickness = 1,
                 VerticalAlignment = VerticalAlignment.Center,
-                HorizontalAlignment = HorizontalAlignment.Center
+                HorizontalAlignment = HorizontalAlignment.Center,
+                DataContext = flagViewModel
             };
+            flag.SetBinding(Flag.FillBrushProperty,
+                new Binding()
+                {
+                    Path = new PropertyPath("FlagColor"),
+                    Mode = BindingMode.TwoWay,
+                    Converter = Converters.DrawingColorToWpfBrushConverterSingleton,
+                });
+            flag.SetBinding(BorderBrushProperty,
+               new Binding()
+               {
+                   Path = new PropertyPath("FlagBorderColor"),
+                   Mode = BindingMode.TwoWay,
+                   Converter = Converters.DrawingColorToWpfBrushConverterSingleton,
+               });
+            flag.FillBrush = brush;
+            flag.BorderBrush = borderBrush;
+            Flags ??= [];
+            Flags.Add(flagViewModel);
+
             var map = VisualTreeHelperExtension.FindVisualParent<Map>(this);
-            map!.AttachContents.Add(new AttachContentModel { Name="flag",Content = targetFlag,Location = new System.Drawing.Point((int)_lastContextMenuPosition.X,(int)_lastContextMenuPosition.Y) });
+            map!.AttachContents.Add(new AttachContentModel { Name="flag",Content = flag,Location = new System.Drawing.Point((int)_lastContextMenuPosition.X,(int)_lastContextMenuPosition.Y) });
         }
 
         protected override void OnRender(DrawingContext drawingContext)
@@ -232,10 +267,10 @@ namespace Lemon.Map.Wpf.Controls
             {
                 case nameof(IsMouseOver):
                     SetContentPopupOpen(IsMouseOver);
-                    if (_signing)
-                    {
-                        return;
-                    }
+                    //if (_signing)
+                    //{
+                    //    return;
+                    //}
                     if (!InvalidateMouseOverBackground())
                     {
                         if (!InvalidateMousePressBackground())
@@ -260,10 +295,10 @@ namespace Lemon.Map.Wpf.Controls
                     InvalidateVisual();
                     break;
                 case nameof(IsPressed):
-                    if (_signing)
-                    {
-                        return;
-                    }
+                    //if (_signing)
+                    //{
+                    //    return;
+                    //}
                     Debug.WriteLine($"IsPressed:{IsPressed}");
                     if (!InvalidateMousePressBackground())
                     {
@@ -296,12 +331,6 @@ namespace Lemon.Map.Wpf.Controls
         {
             var contextMenu = new ContextMenu();
             var fillColorMenuItem = new MenuItem { Header = "FillColor" };
-
-            var revertMenuItem = new MenuItem
-            {
-                Header = new TextBlock { Text = "Revert" },
-            };
-            revertMenuItem.Click += OnFillColorRevertClicked;
 
             var noneMenuItem = new MenuItem
             {
@@ -344,7 +373,6 @@ namespace Lemon.Map.Wpf.Controls
             fillColorMenuItem.Items.Add(noneMenuItem);
             fillColorMenuItem.Items.Add(greenMenuItem);
             fillColorMenuItem.Items.Add(redMenuItem);
-            fillColorMenuItem.Items.Add(revertMenuItem);
 
             var setFlagMenuItem = new MenuItem { Header = "SetFlag" };
             var greenFlagMenuItem = new MenuItem
@@ -374,31 +402,25 @@ namespace Lemon.Map.Wpf.Controls
 
         private void OnFlagColorGreenClicked(object sender, RoutedEventArgs e)
         {
-            OnFlagColorChanged();
+            OnFlagColorChanged(Brushes.Red,Brushes.GreenYellow);
         }
 
         private void OnFillColorNoneClicked(object sender, RoutedEventArgs e)
         {
-            SetActualBackgroundProperty(Brushes.Transparent);
+            Background = Brushes.Transparent;
             _signing = true;
         }
 
         private void OnFillColorRedClicked(object sender, RoutedEventArgs e)
         {
-            SetActualBackgroundProperty(Brushes.Red);
+            Background = Brushes.Red;
             _signing = true;
         }
 
         private void OnFillColorGreenClicked(object sender, RoutedEventArgs e)
         {
-            SetActualBackgroundProperty(Brushes.Green);
+            Background = Brushes.Green;
             _signing = true;
-        }
-
-        private void OnFillColorRevertClicked(object sender, RoutedEventArgs e)
-        {
-            SetActualBackgroundProperty(Background);
-            _signing = false;
         }
 
         private bool InvalidateMouseOverBackground()

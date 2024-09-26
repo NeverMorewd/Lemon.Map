@@ -56,9 +56,18 @@ namespace Lemon.Map.ViewModel
                     foreach (var region in regions)
                     {
                         Console.WriteLine(region);
+                        region.Flags.CollectionChanged += (s,e)=> 
+                        {
+
+                        };
                     }
                 }
             }
+        }
+
+        private void Flags_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            //
         }
 
         [Reactive]

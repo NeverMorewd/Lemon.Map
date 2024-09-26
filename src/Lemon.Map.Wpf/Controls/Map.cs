@@ -207,44 +207,32 @@ namespace Lemon.Map.Wpf.Controls
                             Height = rb.ActualHeight,
                             Left = rb.TransformToAncestor(this).Transform(new Point(0, 0)).X,
                             Top = rb.TransformToAncestor(this).Transform(new Point(0, 0)).Y,
+                            Flags = new ObservableCollection<FlagModel>()
                         };
 
                         rb.DataContext = regionModel;
                         rb.SetBinding(ContentControl.ContentProperty, 
                             new Binding()
                             {
-                                //Source = regionModel,
-                                Path = new PropertyPath("Name")
+                                Path = new PropertyPath("Name"),
+                                Mode = BindingMode.TwoWay,
                             });
 
-                        DataPipe dataPipe = new()
-                        {
-                            Source = rb.ActualBackground
-                        };
-                        //rb.Background = Brushes.Orange;
-                        dataPipe.Target = Brushes.Orange;
-                        Binding binding = new()
-                        {
-                            Source = regionModel,
-                            Path = new PropertyPath("ActualBackground"),
-                            Converter = Converters.DrawingColorToWpfBrushConverterSingleton,
-                            Mode = BindingMode.TwoWay
-                        };
-                        BindingOperations.SetBinding(dataPipe, DataPipe.TargetProperty, binding);
-                        //DataPiping.SetDataPipes(rb, [dataPipe]);
-                        var dataPipes = new DataPipeCollection
-                        {
-                            dataPipe
-                        };
-                        rb.SetValue(DataPiping.DataPipesProperty, dataPipes);
 
                         rb.SetBinding(BackgroundProperty, 
                             new Binding()
                             {
-                                //Source = regionModel,
                                 Path = new PropertyPath("BackgroundColor"),
-                                Converter = Converters.DrawingColorToWpfBrushConverterSingleton
+                                Converter = Converters.DrawingColorToWpfBrushConverterSingleton,
+                                Mode = BindingMode.TwoWay,
                             });
+
+                        rb.SetBinding(Region.FlagsProperty,
+                           new Binding()
+                           {
+                               Path = new PropertyPath("Flags"),
+                               Mode = BindingMode.TwoWay,
+                           });
 
 
                         return regionModel;
