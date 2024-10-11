@@ -1,8 +1,6 @@
 ﻿using Lemon.Map.Model;
 using Lemon.Map.Wpf.Extensions;
 using Lemon.Map.Wpf.Resources;
-using Splat.ModeDetection;
-using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Reactive.Linq;
@@ -11,7 +9,6 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
