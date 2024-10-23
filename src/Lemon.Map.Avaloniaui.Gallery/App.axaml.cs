@@ -1,11 +1,11 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Lemon.Map.Avaloniaui.Sample.ViewModels;
-using Lemon.Map.Avaloniaui.Sample.Views;
+using Lemon.Map.Avaloniaui.Gallery.ViewModels;
+using Lemon.Map.Avaloniaui.Gallery.Views;
 using Lemon.Map.ViewModel;
 
-namespace Lemon.Map.Avaloniaui.Sample
+namespace Lemon.Map.Avaloniaui.Gallery
 {
     public partial class App : Application
     {

@@ -1,6 +1,6 @@
 ﻿using ReactiveUI;
 
-namespace Lemon.Map.Avaloniaui.Sample.ViewModels
+namespace Lemon.Map.Avaloniaui.Gallery.ViewModels
 {
     public class ViewModelBase : ReactiveObject
     {

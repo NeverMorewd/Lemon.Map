@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 
-namespace Lemon.Map.Avaloniaui.Sample.ViewModels
+namespace Lemon.Map.Avaloniaui.Gallery.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {

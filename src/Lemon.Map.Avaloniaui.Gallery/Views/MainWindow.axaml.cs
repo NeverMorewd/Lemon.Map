@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace Lemon.Map.Avaloniaui.Sample.Views
+namespace Lemon.Map.Avaloniaui.Gallery.Views
 {
     public partial class MainWindow : Window
     {

@@ -2,7 +2,7 @@
 using Avalonia.ReactiveUI;
 using System;
 
-namespace Lemon.Map.Avaloniaui.Sample
+namespace Lemon.Map.Avaloniaui.Gallery
 {
     internal sealed class Program
     {

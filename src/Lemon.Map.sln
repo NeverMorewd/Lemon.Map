@@ -5,9 +5,7 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lemon.Map.ViewModel", "Lemon.Map.ViewModel\Lemon.Map.ViewModel.csproj", "{4EC3F3A4-EA36-4D7B-8BD4-C653ADDC1A0F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfTheme", "WpfTheme\WpfTheme.csproj", "{1966957F-9995-495B-9ED9-A690B77E7DC4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lemon.Map.Avaloniaui.Sample", "Lemon.Map.Avaloniaui.Sample\Lemon.Map.Avaloniaui.Sample.csproj", "{1957E777-C841-4132-8B64-211D99C13F6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lemon.Map.Avaloniaui.Gallery", "Lemon.Map.Avaloniaui.Gallery\Lemon.Map.Avaloniaui.Gallery.csproj", "{1957E777-C841-4132-8B64-211D99C13F6D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lemon.Map.Avaloniaui", "Lemon.Map.Avaloniaui\Lemon.Map.Avaloniaui.csproj", "{CE37ABDD-5C38-4BEE-BBAB-6D2020F482FD}"
 EndProject
@@ -27,10 +25,6 @@ Global
 		{4EC3F3A4-EA36-4D7B-8BD4-C653ADDC1A0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EC3F3A4-EA36-4D7B-8BD4-C653ADDC1A0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EC3F3A4-EA36-4D7B-8BD4-C653ADDC1A0F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1966957F-9995-495B-9ED9-A690B77E7DC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1966957F-9995-495B-9ED9-A690B77E7DC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1966957F-9995-495B-9ED9-A690B77E7DC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1966957F-9995-495B-9ED9-A690B77E7DC4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1957E777-C841-4132-8B64-211D99C13F6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1957E777-C841-4132-8B64-211D99C13F6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1957E777-C841-4132-8B64-211D99C13F6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
