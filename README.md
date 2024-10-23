@@ -9,10 +9,10 @@
 
 ### English
 
-A partially interactive map of China
+An interactive map showcase based on wpf and avaloniaui
 
 ---
 
 ### 中文
 
-一个可以交互的部分中国地图
+基于wpf和avaloniaui的 可交互地图示例
