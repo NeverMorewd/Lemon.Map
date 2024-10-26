@@ -9,10 +9,10 @@
 
 ### English
 
-An interactive map showcase based on wpf and avaloniaui
+An interactive map showcase based on wpf
 
 ---
 
 ### 中文
 
-基于wpf和avaloniaui的 可交互地图示例
+基于wpf的 可交互地图示例
