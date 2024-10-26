@@ -9,7 +9,7 @@ namespace Lemon.Map.ViewModel
 {
     public class MainViewModel:ReactiveObject
     {
-        private const int CrazyInterval = 5000000;
+        private const int CrazyInterval = 1000;
         public MainViewModel() 
         {
             Random random = new();

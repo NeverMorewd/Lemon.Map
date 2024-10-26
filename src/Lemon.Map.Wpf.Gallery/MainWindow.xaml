@@ -10,7 +10,7 @@
     xmlns:models="clr-namespace:Lemon.Map.Model;assembly=Lemon.Map.Model"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:vm="clr-namespace:Lemon.Map.ViewModel;assembly=Lemon.Map.ViewModel"
-    Title="MainWindow"
+    Title="Lemon.Map.Gallery"
     Width="1200"
     Height="650"
     WindowStartupLocation="CenterScreen"
