@@ -692,7 +692,7 @@
                                 <PathGeometry Figures="M 302.312 433.238 L 303.923 432.869 L 304.512 432.968 L 304.4 435.079 L 302.059 435.39 L 301.554 435.135 L 302.367 434.357 z" FillRule="Nonzero" />
                             </controls:Region.RegionBoundary>
                         </controls:Region>
-                        <controls:Region Content="Taiwan/台湾">
+                        <controls:Region Content="China Taiwan/台湾">
                             <controls:Region.RegionBoundary>
                                 <PathGeometry Figures="M 816.7 393.266 L 815.012 398.145 L 813.81 400.618 L 812.332 398.072 L 812.013 395.823 L 813.663 392.825 L 815.907 390.497 L 817.187 391.415 z" FillRule="Nonzero" />
                             </controls:Region.RegionBoundary>

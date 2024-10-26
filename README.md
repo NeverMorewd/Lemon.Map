@@ -1,4 +1,4 @@
-# MapDisplay
+# Lemon.Map
 
 ## Language
 
@@ -12,10 +12,10 @@
 
 ### English
 
-An interactive map showcase based on wpf
+An interactive map showcase based on wpf. Support Mvvm
 
 ---
 
 ### 中文
 
-基于wpf的 可交互地图示例
+基于wpf的 可交互地图示例, 支持Mvvm
